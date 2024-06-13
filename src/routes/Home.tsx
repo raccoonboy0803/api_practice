@@ -230,6 +230,7 @@ const Container = styled.main`
   flex-direction: column;
   max-width: 800px;
   row-gap: 20px;
+  margin: 0 auto;
 `;
 
 const FormSecton = styled.section`

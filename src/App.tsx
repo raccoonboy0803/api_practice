@@ -4,6 +4,7 @@ import Home from './routes/Home';
 import Detail from './routes/Detail';
 import Login from './routes/Login';
 import Layout from './routes/Layout';
+import Profile from './routes/Profile';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './util/api';
@@ -18,9 +19,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       { path: '/:id', element: <Detail /> },
-      { path: '/login', element: <Login /> },
+      { path: '/profile', element: <Profile /> },
     ],
   },
+  { path: '/login', element: <Login /> },
 ]);
 
 function App() {
