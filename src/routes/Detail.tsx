@@ -95,8 +95,10 @@ function Detail() {
   const { mutate } = useMutation({
     mutationFn: (updatedData: JsonProps) =>
       updateJsonData(id as string, updatedData),
-    onSuccess: (response) => {
-      console.log('mutate response::', response);
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['detailData'],
+      });
       alert('수정되었습니다');
       navigate('/');
     },

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getUserInfo, queryClient, updateProfile } from '../util/api';
 
@@ -28,7 +28,7 @@ function Profile() {
     queryFn: getUserInfo,
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isError } = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
       alert('프로필 업데이트 성공');
@@ -37,6 +37,12 @@ function Profile() {
       });
     },
   });
+
+  useEffect(() => {
+    if (isError) {
+      alert('변경사항이 없습니다');
+    }
+  }, [isError]);
 
   return (
     <ProfileWrap>

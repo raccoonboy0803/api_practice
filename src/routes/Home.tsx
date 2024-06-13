@@ -40,9 +40,27 @@ function Home() {
   const descriptionRef = useRef<HTMLInputElement>(null);
   const [monthState, setMonthState] = useState<JsonProps[]>([]);
 
+  const { data: userData } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getUserInfo,
+  });
+  console.log('rendered!!!!!');
+
   const { data: jsonData, isFetching } = useQuery({
     queryKey: ['detailData'],
     queryFn: () => getJsonData(),
+    select: (data) => {
+      // data는 getJsonData() 함수의 반환값
+      if (isJsonPropsArray(data)) {
+        return data.map((item) => {
+          if (userData.id === item.userId) {
+            return { ...item, createdBy: userData.nickname };
+          }
+          return item;
+        });
+      }
+      return data;
+    },
   });
 
   useEffect(() => {
@@ -65,11 +83,6 @@ function Home() {
       dateRef.current.value = `${year}-${String(month).padStart(2, '0')}-01`;
     }
   };
-
-  const { data: userData } = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: getUserInfo,
-  });
 
   const { mutate } = useMutation({
     mutationFn: postJsonData,

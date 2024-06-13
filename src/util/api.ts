@@ -68,6 +68,7 @@ export const updateProfile = async (data: UpdateProps) => {
     console.error('Failed to update profile', error);
     throw error;
   }
+  getUserInfo;
 };
 
 const rootUrl = 'https://purple-telling-kosmoceratops.glitch.me/';
