@@ -122,8 +122,13 @@ function Detail() {
     return (
       <DetailWrap>
         <Form>
-          <Label htmlFor="data">날짜</Label>
-          <Input id="data" value={stateVal.date} onChange={changeInput} />
+          <Label htmlFor="date">날짜</Label>
+          <Input
+            id="date"
+            value={stateVal.date}
+            onChange={changeInput}
+            type="date"
+          />
           <Label htmlFor="item">항목</Label>
           <Input id="item" value={stateVal.item} onChange={changeInput} />
           <Label htmlFor="amount">금액</Label>

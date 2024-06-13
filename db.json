@@ -1,22 +1,6 @@
 {
   "expenses": [
     {
-      "date": "2024-01-03",
-      "item": "개인사업",
-      "amount": "200002",
-      "description": "테슬라 모델 3",
-      "createdBy": "Musk",
-      "id": "46869445-5f9c-4650-941f-41bd9457bc07"
-    },
-    {
-      "date": "2024-01-07",
-      "item": "개인사업",
-      "amount": "100022",
-      "description": "X(구 트위터)",
-      "createdBy": "",
-      "id": "a5c0d8de-d010-4d07-9934-29765051a7ea"
-    },
-    {
       "date": "2024-01-13",
       "item": "식비",
       "amount": "20002",

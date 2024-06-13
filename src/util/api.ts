@@ -70,10 +70,11 @@ export const updateProfile = async (data: UpdateProps) => {
   }
 };
 
+const rootUrl = 'https://purple-telling-kosmoceratops.glitch.me/';
+
 export const getJsonData = async (
   id?: string
 ): Promise<JsonProps[] | JsonProps> => {
-  const rootUrl = 'http://localhost:5001';
   const endpoint = id ? `/expenses/${id}` : '/expenses';
   try {
     const response = await axios.get(rootUrl + endpoint);
@@ -92,7 +93,6 @@ export function isJsonPropsArray(
 }
 
 export const updateJsonData = async (id: string, updatedData: JsonProps) => {
-  const rootUrl = 'http://localhost:5001';
   const endpoint = `/expenses/${id}`;
   try {
     const response = await axios.put(rootUrl + endpoint, updatedData);
@@ -105,14 +105,11 @@ export const updateJsonData = async (id: string, updatedData: JsonProps) => {
 };
 
 export const postJsonData = async (data: JsonProps) => {
-  const rootUrl = 'http://localhost:5001';
-
   const response = await axios.post(rootUrl + '/expenses', data);
   return response;
 };
 
 export const deleteJsonData = async (id: string) => {
-  const rootUrl = 'http://localhost:5001';
   const endpoint = `/expenses/${id}`;
   try {
     const response = await axios.delete(rootUrl + endpoint);
