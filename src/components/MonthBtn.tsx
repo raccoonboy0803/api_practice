@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 interface MonthBtnProp {
@@ -6,13 +7,13 @@ interface MonthBtnProp {
   onClick: (month: number) => void;
 }
 
-function MonthBtn({ month, isSelected, onClick }: MonthBtnProp) {
+const MonthBtn = memo(({ month, isSelected, onClick }: MonthBtnProp) => {
   return (
     <Button onClick={() => onClick(month)} $isSelected={isSelected}>
       {month}월
     </Button>
   );
-}
+});
 
 export default MonthBtn;
 

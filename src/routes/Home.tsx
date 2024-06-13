@@ -44,13 +44,11 @@ function Home() {
     queryKey: ['userInfo'],
     queryFn: getUserInfo,
   });
-  console.log('rendered!!!!!');
 
   const { data: jsonData, isFetching } = useQuery({
     queryKey: ['detailData'],
     queryFn: () => getJsonData(),
     select: (data) => {
-      // data는 getJsonData() 함수의 반환값
       if (isJsonPropsArray(data)) {
         return data.map((item) => {
           if (userData.id === item.userId) {

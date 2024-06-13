@@ -71,7 +71,8 @@ export const updateProfile = async (data: UpdateProps) => {
   getUserInfo;
 };
 
-const rootUrl = 'https://purple-telling-kosmoceratops.glitch.me/';
+// const rootUrl = 'https://purple-telling-kosmoceratops.glitch.me/';
+const rootUrl = 'https://skitter-desert-microwave.glitch.me';
 
 export const getJsonData = async (
   id?: string

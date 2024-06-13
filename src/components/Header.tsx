@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo } from '../util/api';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
-function Header() {
+const Header = memo(() => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
 
@@ -48,7 +48,7 @@ function Header() {
       </InfoWrap>
     </HeaderWrap>
   );
-}
+});
 
 export default Header;
 

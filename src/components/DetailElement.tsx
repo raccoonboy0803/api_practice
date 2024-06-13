@@ -1,32 +1,28 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { JsonProps } from '../routes/Home';
+import { memo } from 'react';
 
-function DetailElement({
-  id,
-  date,
-  item,
-  description,
-  amount,
-  createdBy,
-}: JsonProps) {
-  const navigate = useNavigate();
+const DetailElement = memo(
+  ({ id, date, item, description, amount, createdBy }: JsonProps) => {
+    const navigate = useNavigate();
 
-  const navigateDetail = () => {
-    navigate(`/${id}`);
-  };
-  return (
-    <DatailContainer onClick={navigateDetail}>
-      <DetailEleWrap>
-        <DetailTitleWrap>
-          <DetailTitleSpan>{date}</DetailTitleSpan>
-          <DetailTitleSpan>{`${item} - ${description} (by ${createdBy})`}</DetailTitleSpan>
-        </DetailTitleWrap>
-        <DeatilAmounWrap>{`${amount} 원`}</DeatilAmounWrap>
-      </DetailEleWrap>
-    </DatailContainer>
-  );
-}
+    const navigateDetail = () => {
+      navigate(`/${id}`);
+    };
+    return (
+      <DatailContainer onClick={navigateDetail}>
+        <DetailEleWrap>
+          <DetailTitleWrap>
+            <DetailTitleSpan>{date}</DetailTitleSpan>
+            <DetailTitleSpan>{`${item} - ${description} (by ${createdBy})`}</DetailTitleSpan>
+          </DetailTitleWrap>
+          <DeatilAmounWrap>{`${amount} 원`}</DeatilAmounWrap>
+        </DetailEleWrap>
+      </DatailContainer>
+    );
+  }
+);
 
 export default DetailElement;
 

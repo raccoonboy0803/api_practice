@@ -43,7 +43,7 @@ function Detail() {
   });
 
   const { data: jsonData, isFetching } = useQuery({
-    queryKey: ['detailData', id],
+    queryKey: ['detailDataFromId'],
     queryFn: () => getJsonData(id),
   });
 
@@ -53,6 +53,7 @@ function Detail() {
       queryClient.invalidateQueries({
         queryKey: ['detailData'],
       });
+      navigate('/');
     },
   });
 
@@ -65,7 +66,6 @@ function Detail() {
     if (jsonData && !isJsonPropsArray(jsonData)) {
       deleteMutate(jsonData.id!);
     }
-    navigate('/');
   };
 
   const [stateVal, setStateVal] = useState<JsonProps>({
