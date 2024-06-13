@@ -2,22 +2,33 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import Home from './routes/Home';
 import Detail from './routes/Detail';
+import Login from './routes/Login';
+import Layout from './routes/Layout';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './util/api';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      { path: '/:id', element: <Detail /> },
+      { path: '/login', element: <Login /> },
+    ],
   },
-  { path: '/:id', element: <Detail /> },
 ]);
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <RouterProvider router={router} />
-    </>
+    </QueryClientProvider>
   );
 }
 
