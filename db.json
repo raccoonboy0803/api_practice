@@ -1,0 +1,220 @@
+{
+  "expenses": [
+    {
+      "date": "2024-01-03",
+      "item": "개인사업",
+      "amount": "200002",
+      "description": "테슬라 모델 3",
+      "createdBy": "Musk",
+      "id": "46869445-5f9c-4650-941f-41bd9457bc07"
+    },
+    {
+      "date": "2024-01-07",
+      "item": "개인사업",
+      "amount": "100022",
+      "description": "X(구 트위터)",
+      "createdBy": "",
+      "id": "a5c0d8de-d010-4d07-9934-29765051a7ea"
+    },
+    {
+      "date": "2024-01-13",
+      "item": "식비",
+      "amount": "20002",
+      "description": "메가커피2",
+      "createdBy": "Rosie",
+      "month": 1,
+      "userId": "41bd966c07-5e3c-4130-941f",
+      "id": "0d0a966e-5c35-4bf0-aca4-f2b1265a432d"
+    },
+    {
+      "id": "9aba6d72-5ee7-4f02-a4d4-e8bbff9ded4b",
+      "month": 1,
+      "date": "2024-01-17",
+      "item": "식비",
+      "amount": 21000,
+      "description": "대광참치",
+      "createdBy": "Rosie",
+      "userId": "41efde21c07-5f9c-4650-941f"
+    },
+    {
+      "id": "b82b213e-8164-4c89-94b0-7246cdcfc4f9",
+      "month": 1,
+      "date": "2024-01-21",
+      "item": "식비",
+      "amount": 412000,
+      "description": "BBQ",
+      "createdBy": "Me",
+      "userId": "41abeddwc07-5f9c-4650-941f"
+    },
+    {
+      "id": "d180194f-7c27-428a-8cd9-ad9114e58821",
+      "month": 1,
+      "date": "2024-01-22",
+      "item": "도서",
+      "amount": 23000,
+      "description": "리액트 마스터",
+      "createdBy": "Me",
+      "userId": "41eeqwwc07-5f9c-4650-941f"
+    },
+    {
+      "id": "0abf06c3-8f0e-4ea1-9691-7facab0a91cb",
+      "month": 1,
+      "date": "2024-01-30",
+      "item": "외식",
+      "amount": 100000,
+      "description": "세광양대창",
+      "createdBy": "Me",
+      "userId": "4111207-5f9c-4e20-912f"
+    },
+    {
+      "date": "2024-01-10",
+      "item": "식비",
+      "amount": "10002",
+      "description": "아이스크림",
+      "createdBy": "raccoon22",
+      "month": 1,
+      "userId": "raccoon2",
+      "id": "eb1c99b4-5a3c-435f-9968-e8ec73dfdfa3"
+    },
+    {
+      "id": "5b34faf5-1746-4ded-bbac-c500248370ba",
+      "amount": 2,
+      "date": "2024-02-22",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "fcd20597-0083-48e5-8235-c88ef6d4873f",
+      "amount": 23,
+      "date": "2024-02-22",
+      "description": "23",
+      "item": "23",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "c368336b-2410-43cf-8ecc-90ef738a566c",
+      "amount": 233,
+      "date": "2024-02-22",
+      "description": "23",
+      "item": "3",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "c1296bed-825b-49ab-8753-fe95253dacc2",
+      "amount": 233,
+      "date": "2024-02-22",
+      "description": "23",
+      "item": "3",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "b021d82b-6162-4a07-a6bd-1db9ba3a8de6",
+      "amount": 2,
+      "date": "2024-06-13",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 6,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "487aeb38-c255-4ad1-824b-d30448288b0e",
+      "amount": 1,
+      "date": "2024-06-13",
+      "description": "1",
+      "item": "1",
+      "createdBy": "raccoon22",
+      "month": 6,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "40a8473c-61fa-4a50-8801-a106cd4a782b",
+      "amount": 2,
+      "date": "2024-03-14",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 3,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "296e380b-a418-481e-922e-ed08eda01029",
+      "amount": 22,
+      "date": "2024-03-14",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 3,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "d15e6257-a83f-4df3-8147-46aaeb8b2e59",
+      "amount": 3,
+      "date": "2024-03-14",
+      "description": "3",
+      "item": "3",
+      "createdBy": "raccoon22",
+      "month": 3,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "73e683fd-4e4e-4f22-8425-fd25bbd3768b",
+      "amount": 2,
+      "date": "2024-03-01",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 3,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "d76124e3-2b5c-4694-ad0c-01a90af73668",
+      "amount": 2,
+      "date": "2024-03-01",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 3,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "2ad80922-fc5b-44ff-bd1d-1cf274a90577",
+      "amount": 2,
+      "date": "2024-02-01",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "6cab5d20-62ae-41b9-9e22-5a3cc807caf9",
+      "amount": 2,
+      "date": "2024-02-01",
+      "description": "2",
+      "item": "2",
+      "createdBy": "raccoon22",
+      "month": 2,
+      "userId": "raccoon2"
+    },
+    {
+      "id": "685bfd17-e982-4dc3-a252-5e94ff2a07ba",
+      "amount": 1,
+      "date": "2024-04-01",
+      "description": "1",
+      "item": "1",
+      "createdBy": "raccoon22",
+      "month": 4,
+      "userId": "raccoon2"
+    }
+  ]
+}

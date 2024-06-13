@@ -3,16 +3,15 @@ import styled from 'styled-components';
 import monthData from '../data/monthData.ts';
 import MonthBtn from '../components/MonthBtn';
 import DetailElement from '../components/DetailElement.tsx';
-import { useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
-  addList,
-  saveState,
-  loadState,
-  RootState,
-  StateProp,
-} from '../store.ts';
+  getJsonData,
+  getUserInfo,
+  isJsonPropsArray,
+  postJsonData,
+  queryClient,
+} from '../util/api.ts';
 
 export interface MockDataTypes {
   id: string;
@@ -22,105 +21,65 @@ export interface MockDataTypes {
   description: string;
 }
 
+export interface JsonProps {
+  amount: number;
+  date: string;
+  description: string;
+  item: string;
+  id?: string;
+  createdBy: string;
+  month: number;
+  userId: string;
+}
+
 function Home() {
-  const [mockData, setMockData] = useState<MockDataTypes[]>([]);
-  const [curMonthData, setCurMonthData] = useState<MockDataTypes[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<number>(1);
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const lists = useSelector((state: RootState) => state.list);
-  const { newData, delData } = location.state || {};
   const dateRef = useRef<HTMLInputElement>(null);
   const itemRef = useRef<HTMLInputElement>(null);
   const amountRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
+  const [monthState, setMonthState] = useState<JsonProps[]>([]);
+
+  const { data: jsonData, isFetching } = useQuery({
+    queryKey: ['detailData'],
+    queryFn: () => getJsonData(),
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/mockData.json');
-      const data = await response.json();
-
-      saveState(data);
-      data.map((item: StateProp) => {
-        dispatch(addList(item));
-      });
-      setMockData(data);
-      const initialMonthData = data.filter(
-        (item: MockDataTypes) => new Date(item.date).getMonth() + 1 === 1
+    if (jsonData && isJsonPropsArray(jsonData)) {
+      const filteredData = jsonData.filter(
+        (data) => data.month === selectedMonth
       );
-      if (dateRef.current) {
-        const year = new Date().getFullYear();
-        dateRef.current.value = `${year}-${'01'.padStart(2, '0')}-01`;
-      }
-      setCurMonthData(initialMonthData);
-    };
-
-    const storedData = loadState();
-    if (storedData.length >= 1) {
-      setMockData(storedData);
-      const initialMonthData = storedData.filter(
-        (item: MockDataTypes) => new Date(item.date).getMonth() + 1 === 1
-      );
-      if (dateRef.current) {
-        const year = new Date().getFullYear();
-        dateRef.current.value = `${year}-${'01'.padStart(2, '0')}-01`;
-      }
-      setCurMonthData(initialMonthData);
-    } else {
-      fetchData();
+      setMonthState(filteredData);
     }
-  }, []);
+  }, [jsonData, selectedMonth]);
 
-  useEffect(() => {
-    if (newData) {
-      setMockData((prevMockData) => {
-        const updatedData = prevMockData.map((item) => {
-          if (item.id === newData.id) {
-            return { ...newData, amount: Number(newData.amount) };
-          }
-          return item;
-        });
-
-        const initialMonthData = updatedData.filter(
-          (item: MockDataTypes) => new Date(item.date).getMonth() + 1 === 1
-        );
-
-        setCurMonthData(initialMonthData);
-        return updatedData;
-      });
-    }
-    if (delData) {
-      setMockData((prevMockData) => {
-        const updatedData = prevMockData.filter(
-          (item) => item.id !== delData.id
-        );
-
-        const initialMonthData = updatedData.filter(
-          (item: MockDataTypes) => new Date(item.date).getMonth() + 1 === 1
-        );
-        if (dateRef.current) {
-          const year = new Date().getFullYear();
-          dateRef.current.value = `${year}-${'01'.padStart(2, '0')}-01`;
-        }
-        setCurMonthData(initialMonthData);
-        return updatedData;
-      });
-    }
-  }, [newData, delData]);
-
-  const clickMonthBtn = async (month: number) => {
-    if (lists !== null) {
-      const filterdData = lists.filter(
-        (data: MockDataTypes) => new Date(data.date).getMonth() + 1 === month
-      );
-      setCurMonthData(filterdData);
+  const clickMonthBtn = (month: number) => {
+    setSelectedMonth(month);
+    if (jsonData && isJsonPropsArray(jsonData)) {
+      const monthFilteredData = jsonData.filter((data) => data.month === month);
+      setMonthState(monthFilteredData);
     }
     if (dateRef.current) {
       const year = new Date().getFullYear();
       dateRef.current.value = `${year}-${String(month).padStart(2, '0')}-01`;
     }
-    setSelectedMonth(month);
   };
+
+  const { data: userData } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getUserInfo,
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: postJsonData,
+    onSuccess: () => {
+      alert('등록되었습니다');
+      queryClient.invalidateQueries({
+        queryKey: ['detailData'],
+      });
+    },
+  });
 
   const submitForm = () => {
     if (
@@ -139,22 +98,22 @@ function Home() {
         return;
       }
 
-      const newEntry: MockDataTypes = {
+      const newEntry = {
         id: uuidv4(),
-        date: dateRef.current.value,
-        item: itemRef.current.value,
         amount: Number(amountRef.current.value),
+        date: dateRef.current.value,
         description: descriptionRef.current.value,
+        item: itemRef.current.value,
+        createdBy: userData.nickname,
+        month: parseInt(dateRef?.current?.value.split('-')[1]),
+        userId: userData.id,
       };
 
-      const updatedData = [...mockData, newEntry];
-      setMockData(updatedData);
-      dispatch(addList(newEntry));
+      mutate(newEntry);
 
-      const initialMonthData = updatedData.filter(
-        (item: MockDataTypes) => new Date(item.date).getMonth() + 1 === 1
-      );
-      setCurMonthData(initialMonthData);
+      itemRef.current.value = '';
+      amountRef.current.value = '';
+      descriptionRef.current.value = '';
     }
   };
 
@@ -165,10 +124,11 @@ function Home() {
           <InputWrap>
             <Label htmlFor="date">날짜</Label>
             <Input
-              type="text"
+              type="date"
               id="date"
               placeholder="YYYY-MM-DD"
               ref={dateRef}
+              defaultValue="2024-01-01"
             />
           </InputWrap>
           <InputWrap>
@@ -215,9 +175,11 @@ function Home() {
       </DateSection>
       <GraphWrap></GraphWrap>
       <DetailSection>
-        {curMonthData.map((data) => {
-          return <DetailElement key={data.id} {...data} />;
-        })}
+        {!isFetching &&
+          jsonData &&
+          monthState.map((data) => {
+            return <DetailElement key={data.id} {...data} />;
+          })}
       </DetailSection>
     </Container>
   );

@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
-interface DetailEleProps {
-  id: string;
-  date: string;
-  item: string;
-  description: string;
-  amount: number;
-}
+import { JsonProps } from '../routes/Home';
 
 function DetailElement({
   id,
@@ -15,7 +8,8 @@ function DetailElement({
   item,
   description,
   amount,
-}: DetailEleProps) {
+  createdBy,
+}: JsonProps) {
   const navigate = useNavigate();
 
   const navigateDetail = () => {
@@ -26,7 +20,7 @@ function DetailElement({
       <DetailEleWrap>
         <DetailTitleWrap>
           <DetailTitleSpan>{date}</DetailTitleSpan>
-          <DetailTitleSpan>{`${item} - ${description}`}</DetailTitleSpan>
+          <DetailTitleSpan>{`${item} - ${description} (by ${createdBy})`}</DetailTitleSpan>
         </DetailTitleWrap>
         <DeatilAmounWrap>{`${amount} 원`}</DeatilAmounWrap>
       </DetailEleWrap>

@@ -1,6 +1,8 @@
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { JsonProps } from '../routes/Home';
+
 const BASE_URL = 'https://moneyfulpublicpolicy.co.kr';
 
 export const queryClient = new QueryClient();
@@ -64,6 +66,59 @@ export const updateProfile = async (data: UpdateProps) => {
     return response;
   } catch (error) {
     console.error('Failed to update profile', error);
+    throw error;
+  }
+};
+
+export const getJsonData = async (
+  id?: string
+): Promise<JsonProps[] | JsonProps> => {
+  const rootUrl = 'http://localhost:5001';
+  const endpoint = id ? `/expenses/${id}` : '/expenses';
+  try {
+    const response = await axios.get(rootUrl + endpoint);
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch json data', error);
+    throw error;
+  }
+};
+
+export function isJsonPropsArray(
+  data: JsonProps[] | JsonProps
+): data is JsonProps[] {
+  return Array.isArray(data);
+}
+
+export const updateJsonData = async (id: string, updatedData: JsonProps) => {
+  const rootUrl = 'http://localhost:5001';
+  const endpoint = `/expenses/${id}`;
+  try {
+    const response = await axios.put(rootUrl + endpoint, updatedData);
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update json data', error);
+    throw error;
+  }
+};
+
+export const postJsonData = async (data: JsonProps) => {
+  const rootUrl = 'http://localhost:5001';
+
+  const response = await axios.post(rootUrl + '/expenses', data);
+  return response;
+};
+
+export const deleteJsonData = async (id: string) => {
+  const rootUrl = 'http://localhost:5001';
+  const endpoint = `/expenses/${id}`;
+  try {
+    const response = await axios.delete(rootUrl + endpoint);
+    return response;
+  } catch (error) {
+    console.error('Failed to delete json data', error);
     throw error;
   }
 };

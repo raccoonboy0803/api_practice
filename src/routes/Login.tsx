@@ -42,7 +42,6 @@ function Login() {
   const { mutate: loginMutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: (response) => {
-      console.log(response);
       localStorage.setItem('accessToken', response.data.accessToken);
       navigate('/');
     },

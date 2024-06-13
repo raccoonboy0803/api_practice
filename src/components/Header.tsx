@@ -2,27 +2,49 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserInfo } from '../util/api';
+import { useEffect, useState } from 'react';
 
 function Header() {
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
 
   const { data } = useQuery({
     queryKey: ['getUser'],
     queryFn: getUserInfo,
   });
 
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    setIsLogin(false);
+    navigate('/login');
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      setIsLogin(true);
+    } else {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <HeaderWrap>
       <NavWrap>
         <HomeNav onClick={() => navigate('/')}>HOME</HomeNav>
-        <MyProfile onClick={() => navigate('/profile')}>내프로필</MyProfile>
+        {isLogin ? (
+          <MyProfile onClick={() => navigate('/profile')}>내프로필</MyProfile>
+        ) : null}
       </NavWrap>
       <InfoWrap>
-        <MyInfo>
-          <Avatar src={data?.avatar ? data?.avatar : null} />
-          {data?.nickname}
-        </MyInfo>
-        <LogoutBtn>로그아웃</LogoutBtn>
+        {isLogin ? (
+          <>
+            <MyInfo>
+              <Avatar src={data?.avatar ? data?.avatar : null} />
+              {data?.nickname}
+            </MyInfo>
+            <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
+          </>
+        ) : null}
       </InfoWrap>
     </HeaderWrap>
   );
