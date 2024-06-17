@@ -31,20 +31,11 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    const originalRequest = error.config; // 에러가 발생한 원본 요청
-
-    if (error.response?.status === 401) {
-      try {
-        // 재요청 후 에러가 발생하면 로그아웃 처리
-        const response = await axiosInstance(originalRequest!);
-        return response;
-      } catch (refreshError) {
-        alert('로그인 만료시간이 끝났습니다. 재로그인해주세요');
-        logout();
-        return Promise.reject(refreshError);
-      }
+    {
+      alert('로그인 만료시간이 끝났습니다. 재로그인해주세요');
+      logout();
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
 
